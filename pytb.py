@@ -11,11 +11,11 @@ def load_api():
     return json.loads(requests.get(URL).text)  
   
   
-def get_api(ccy_key):  
-    for exc in load_api():  
-        if ccy_key == exc['ccy']:  
-            return exc  
-    return False  
+# def get_api(ccy_key):  
+#     for exc in load_api():  
+#         if ccy_key == exc['ccy']:  
+#             return exc  
+#     return False  
   
   
 # def get_apis(ccy_pattern):  

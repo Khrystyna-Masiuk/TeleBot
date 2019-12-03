@@ -4,11 +4,9 @@ import pytb
 import datetime
 import json
 import traceback
-from bot import bot
-
 
 bot = telebot.TeleBot(config.TOKEN)
-bot.polling(none_stop=True)
+
 
 @bot.message_handler(commands=['start'])  
 def start_command(message):  
@@ -24,7 +22,7 @@ def help_command(message):
     keyboard = telebot.types.InlineKeyboardMarkup()  
     keyboard.add(  
         telebot.types.InlineKeyboardButton(  
-            'Message the developer', url='telegram.me/artiomtb'  
+            'Message the developer', url='telegram.me/BlackStarJaxx'  
   )  
     )  
     bot.send_message(  
@@ -51,7 +49,7 @@ def get_ex_callback(query):
 
 def send_exchange_result(message, ex_code):  
     bot.send_chat_action(message.chat.id, 'typing')  
-    ex = pb.get_exchange(ex_code)  
+    ex = pytb.get_exchange(ex_code)  
     bot.send_message(  
         message.chat.id, serialize_ex(ex),  
         reply_markup=get_update_keyboard(ex),  
@@ -74,10 +72,13 @@ def get_update_keyboard(ex):
 	telebot.types.InlineKeyboardButton('Share', switch_inline_query=ex['ccy'])  
     )  
     return keyboard
+    
 
 
 
 
 
+if __name__ == "__main__":
+    bot.polling(none_stop=True)
 
 
