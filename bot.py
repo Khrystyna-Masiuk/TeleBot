@@ -4,9 +4,16 @@ import pytb
 import datetime
 import json
 import traceback
+<<<<<<< HEAD
 
 bot = telebot.TeleBot(config.TOKEN)
 
+=======
+
+
+
+bot = telebot.TeleBot(config.TOKEN)
+>>>>>>> ec9b105c369b9a641514b98da24f572266cd3846
 
 @bot.message_handler(commands=['start'])  
 def start_command(message):  
@@ -45,8 +52,9 @@ def iq_callback(query):
 
 def get_ex_callback(query):  
     bot.answer_callback_query(query.id)  
-    send_exchange_result(query.message, query.data[4:])
+    #send_exchange_result(query.message, query.data[4:])
 
+<<<<<<< HEAD
 def send_exchange_result(message, ex_code):  
     bot.send_chat_action(message.chat.id, 'typing')  
     ex = pytb.get_exchange(ex_code)  
@@ -55,18 +63,28 @@ def send_exchange_result(message, ex_code):
         reply_markup=get_update_keyboard(ex),  
 	parse_mode='HTML'  
     )
+=======
+# def send_exchange_result(message, ex_code):
+#     bot.send_chat_action(message.chat.id, 'typing')
+#     ex = pytb.get_exchange(ex_code)
+#     bot.send_message(
+#         message.chat.id, serialize_ex(ex),
+#         reply_markup=get_update_keyboard(ex),
+# 	parse_mode='HTML'
+#     )
+>>>>>>> ec9b105c369b9a641514b98da24f572266cd3846
 def get_update_keyboard(ex):  
     keyboard = telebot.types.InlineKeyboardMarkup()  
     keyboard.row(  
         telebot.types.InlineKeyboardButton(  
             'Update',  
-	    callback_data=json.dumps({  
-                't': 'u',  
-		'e': {  
-                    'b': ex['buy'],  
-		    's': ex['sale'],  
-		    'c': ex['ccy']  
-                }  
+	    callback_data=json.dumps({
+            't': 'u',
+            'e': {
+                'b': ex['buy'],
+		        's': ex['sale'],
+		        'c': ex['ccy']
+            }
             }).replace(' ', '')  
         ),  
 	telebot.types.InlineKeyboardButton('Share', switch_inline_query=ex['ccy'])  
@@ -74,7 +92,7 @@ def get_update_keyboard(ex):
     return keyboard
     
 
-
+bot.polling(none_stop=True)
 
 
 
